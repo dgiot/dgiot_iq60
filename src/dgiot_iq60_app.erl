@@ -14,8 +14,8 @@
 %% limitations under the License.
 %%--------------------------------------------------------------------
 
-%% @doc dgiot_meter Application
--module(dgiot_meter_app).
+%% @doc dgiot_iq60 Application
+-module(dgiot_iq60_app).
 -emqx_plugin(?MODULE).
 -behaviour(application).
 
@@ -28,8 +28,8 @@
 %%--------------------------------------------------------------------
 
 start(_StartType, _StartArgs) ->
-    dgiot_metrics:start(dgiot_meter),
-    {ok, Sup} = dgiot_meter_sup:start_link(),
+    dgiot_metrics:start(dgiot_iq60),
+    {ok, Sup} = dgiot_iq60_sup:start_link(),
     {ok, Sup}.
 
 stop(_State) ->

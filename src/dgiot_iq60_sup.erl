@@ -14,8 +14,8 @@
 %% limitations under the License.
 %%--------------------------------------------------------------------
 
-%% @doc dgiot_meter supervisor
--module(dgiot_meter_sup).
+%% @doc dgiot_iq60 supervisor
+-module(dgiot_iq60_sup).
 
 -behaviour(supervisor).
 
@@ -39,6 +39,6 @@ start_link() ->
 %% Supervisor callbacks
 %%--------------------------------------------------------------------
 
-init([]) -> 
+init([]) ->
     {ok, { {one_for_all, 5, 10}, []}}.
 

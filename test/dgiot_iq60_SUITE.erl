@@ -1,5 +1,5 @@
 
--module(dgiot_meter_SUITE).
+-module(dgiot_iq60_SUITE).
 
 -compile(export_all).
 

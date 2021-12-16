@@ -1,5 +1,5 @@
-PROJECT = dgiot_meter
-PROJECT_DESCRIPTION = dgiot_meter Plugin
+PROJECT = dgiot_iq60
+PROJECT_DESCRIPTION = dgiot_iq60 Plugin
 PROJECT_VERSION = 1.5.4
 
 CUR_BRANCH := $(shell git branch | grep -e "^*" | cut -d' ' -f 2)
@@ -19,4 +19,4 @@ ERLC_OPTS += +'{parse_transform, lager_transform}'
 include erlang.mk
 
 app.dgiot_group::
-	./deps/cuttlefish/cuttlefish -l info -e etc/ -c etc/dgiot_meter.conf -i priv/dgiot_meter.schema -d data
+	./deps/cuttlefish/cuttlefish -l info -e etc/ -c etc/dgiot_iq60.conf -i priv/dgiot_iq60.schema -d data

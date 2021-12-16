@@ -13,11 +13,11 @@
 %% See the License for the specific language governing permissions and
 %% limitations under the License.
 %%--------------------------------------------------------------------
--module(dgiot_meter_handler).
+-module(dgiot_iq60_handler).
 -author("johnliu").
 -behavior(dgiot_rest).
 -include_lib("dgiot/include/logger.hrl").
--include("dgiot_meter.hrl").
+-include("dgiot_iq60.hrl").
 -dgiot_rest(all).
 %% API
 -export([swagger_meter/0]).
@@ -80,21 +80,21 @@ handle(OperationID, Args, Context, Req) ->
 %% TDengine 概要: 获取当前产品下的所有设备数据 描述:获取当前产品下的所有设备数据
 %% OperationId:get_td_cid_pid
 %% 请求:GET /iotapi/td/prodcut/:productId
-do_request(get_meter_ctrl, #{
+do_request(get_iq60_ctrl, #{
     <<"pid">> := ProductId,
     <<"devaddr">> := DevAddr,
     <<"ctrlflag">> := CtrlFlag,
     <<"devpass">> := DevPass
 }, _Context, Req0) ->
-    get_meter_ctrl(Req0, ProductId, DevAddr, CtrlFlag, DevPass);
+    get_iq60_ctrl(Req0, ProductId, DevAddr, CtrlFlag, DevPass);
 
-do_request(get_meter_ctrl_status, #{
+do_request(get_iq60_ctrl_status, #{
     <<"pid">> := ProductId,
     <<"ctrlflag">> := CtrlFlag,
     <<"devaddr">> := DevAddr
 }, _Context, _Req) ->
     TopicCtrl = <<"thingctrl/", ProductId/binary, "/", DevAddr/binary>>,
-    ThingData = #{<<"devaddr">> => DevAddr, <<"ctrlflag">> => CtrlFlag, <<"apiname">> => get_meter_ctrl_status},
+    ThingData = #{<<"devaddr">> => DevAddr, <<"ctrlflag">> => CtrlFlag, <<"apiname">> => get_iq60_ctrl_status},
     Payload = [#{<<"appdata">> => #{}, <<"thingdata">> => ThingData}],
     dgiot_mqtt:publish(DevAddr, TopicCtrl, jsx:encode(Payload));
 
@@ -104,9 +104,9 @@ do_request(_OperationId, _Args, _Context, _Req) ->
     ?LOG(info, "_OperationId:~p~n", [_OperationId]),
     {error, <<"Not Allowed.">>}.
 
-get_meter_ctrl(Req0, ProductId, DevAddr, CtrlFlag, DevPass) ->
+get_iq60_ctrl(Req0, ProductId, DevAddr, CtrlFlag, DevPass) ->
     Sendtopic = <<"thingctrl/", ProductId/binary, "/", DevAddr/binary>>,
-    ThingData = #{<<"devaddr">> => DevAddr, <<"ctrlflag">> => CtrlFlag, <<"devpass">> => DevPass, <<"apiname">> => get_meter_ctrl},
+    ThingData = #{<<"devaddr">> => DevAddr, <<"ctrlflag">> => CtrlFlag, <<"devpass">> => DevPass, <<"apiname">> => get_iq60_ctrl},
     Payload = [#{<<"pid">> => self(),<<"appdata">> => #{}, <<"thingdata">> => ThingData}],
     case dgiot_mqtt:has_routes(Sendtopic) of
         true ->
